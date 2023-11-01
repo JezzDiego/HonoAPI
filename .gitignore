@@ -1,0 +1,19 @@
+# Honu + Bun project gitignore
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore logs
+logs/
+
+# Ignore build artifacts
+dist/
+build/
+
+# Ignore environment variables
+.env
+
+# Ignore any files that might contain sensitive information
+*.pem
+*.key
+*.crt
