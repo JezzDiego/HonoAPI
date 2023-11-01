@@ -1,8 +1,10 @@
-import { text, sqliteTable } from "drizzle-orm/sqlite-core";
+import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 
-const UserModel = sqliteTable("users", {
-  id: text("id"),
-  email: text("email"),
+const UserModel = sqliteTable("Users", {
+  id: integer("id").notNull().primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  password: text("password").notNull(),
 });
 
 export default UserModel;

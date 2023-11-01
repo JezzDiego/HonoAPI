@@ -13,9 +13,7 @@ class UserController {
   public static async getAllUsers(c: Context<Env, "/users", {}>) {
     try {
       const result = await db.select().from(UserModel).all();
-      return c.json({
-        response: result,
-      });
+      return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
         return c.newResponse(`${error}`, error.rawCode);
@@ -54,16 +52,16 @@ class UserController {
    * @returns A JSON response containing the newly created user.
    */
   public static async createUser(
-    c: Context<Env, "/user/create/:id/:email", {}>
+    c: Context<Env, "/users/create/:id/:email", {}>
   ) {
     try {
       const result = await db.insert(UserModel).values({
-        id: c.req.param("id"),
+        id: parseInt(c.req.param("id")),
         email: c.req.param("email"),
+        name: "dasda",
+        password: "dasdas",
       });
-      return c.json({
-        response: result,
-      });
+      return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
         return c.newResponse(`${error}`, error.rawCode);
@@ -86,9 +84,7 @@ class UserController {
           email: c.req.param("email"),
         })
         .where(sql`id = ${c.req.param("id")}`);
-      return c.json({
-        response: result,
-      });
+      return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
         return c.newResponse(`${error}`, error.rawCode);
@@ -108,9 +104,7 @@ class UserController {
       const result = await db
         .delete(UserModel)
         .where(sql`id = ${c.req.param("id")}`);
-      return c.json({
-        response: result,
-      });
+      return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
         return c.newResponse(`${error}`, error.rawCode);
