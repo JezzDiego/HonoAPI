@@ -1,8 +1,8 @@
-import UserModel from "../models/UserModel";
-import { LibsqlError } from "@libsql/client";
-import db from "../utils/connection";
 import { Context, Env } from "hono";
 import { sql } from "drizzle-orm";
+import { LibsqlError } from "@libsql/client";
+import UserModel from "../models/UserModel";
+import db from "../utils/connection";
 
 class UserController {
   /**
