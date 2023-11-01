@@ -9,6 +9,6 @@ Creating an API with the fastest and most unstable tech stack just released so y
    bun install
    ```
 3. ```SHELL
-   bun run --hot src/index.ts
+   bun run dev
    ```
 4. Go to `localhost:3000`
