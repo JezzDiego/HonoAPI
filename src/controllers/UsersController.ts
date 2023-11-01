@@ -4,7 +4,7 @@ import { LibsqlError } from "@libsql/client";
 import UserModel from "../models/UserModel";
 import db from "../utils/connection";
 
-class UserController {
+export default class UserController {
   /**
    * Retrieves all users from the database.
    * @param c - The context object containing the request and response objects.
@@ -51,15 +51,13 @@ class UserController {
    * @param c - The context object containing the request and response objects.
    * @returns A JSON response containing the newly created user.
    */
-  public static async createUser(
-    c: Context<Env, "/users/create/:id/:email", {}>
-  ) {
+  public static async createUser(c: Context<Env, "/users", {}>) {
     try {
+      const body = await c.req.json();
       const result = await db.insert(UserModel).values({
-        id: parseInt(c.req.param("id")),
-        email: c.req.param("email"),
-        name: "dasda",
-        password: "dasdas",
+        email: body["email"],
+        name: body["name"],
+        password: body["password"],
       });
       return c.json(result);
     } catch (error) {
@@ -76,12 +74,15 @@ class UserController {
    * @param c - The context object containing the request and response objects.
    * @returns A JSON response containing the updated user.
    */
-  public static async updateUserById(c: Context<Env, "/users/:id/:email", {}>) {
+  public static async updateUserById(c: Context<Env, "/users/:id", {}>) {
     try {
+      const body = await c.req.json();
       const result = await db
         .update(UserModel)
         .set({
-          email: c.req.param("email"),
+          email: body["email"],
+          name: body["name"],
+          password: body["password"],
         })
         .where(sql`id = ${c.req.param("id")}`);
       return c.json(result);
@@ -114,5 +115,3 @@ class UserController {
     }
   }
 }
-
-export default UserController;

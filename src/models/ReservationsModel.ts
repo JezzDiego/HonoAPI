@@ -2,7 +2,7 @@ import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 import SportsModel from "./SportsModel";
 import UserModel from "./UserModel";
 
-const ReservationsModel = sqliteTable("Users", {
+const ReservationsModel = sqliteTable("Reservations", {
   id: integer("id").primaryKey(),
   client_name: text("client_name").notNull(),
   client_id: integer("client_id")
