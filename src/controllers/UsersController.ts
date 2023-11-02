@@ -13,6 +13,7 @@ export default class UserController {
   public static async getAllUsers(c: Context<Env, "/users", {}>) {
     try {
       const result = await db.select().from(UserModel).all();
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
@@ -34,9 +35,8 @@ export default class UserController {
         .select()
         .from(UserModel)
         .where(sql`id = ${c.req.param("id")}`);
-      return c.json({
-        response: result,
-      });
+
+      return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
         return c.newResponse(`${error}`, error.rawCode);
@@ -54,11 +54,14 @@ export default class UserController {
   public static async createUser(c: Context<Env, "/users", {}>) {
     try {
       const body = await c.req.json();
+      const hashedPassword = await Bun.password.hash(body["password"]);
+
       const result = await db.insert(UserModel).values({
         email: body["email"],
         name: body["name"],
-        password: body["password"],
+        password: hashedPassword,
       });
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
@@ -85,6 +88,7 @@ export default class UserController {
           password: body["password"],
         })
         .where(sql`id = ${c.req.param("id")}`);
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
@@ -105,6 +109,7 @@ export default class UserController {
       const result = await db
         .delete(UserModel)
         .where(sql`id = ${c.req.param("id")}`);
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {

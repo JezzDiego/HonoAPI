@@ -13,6 +13,7 @@ export default class ReservationsController {
   public static async getAllReservations(c: Context<Env, "/reservations", {}>) {
     try {
       const result = await db.select().from(ReservationsModel).all();
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
@@ -36,6 +37,7 @@ export default class ReservationsController {
         .select()
         .from(ReservationsModel)
         .where(sql`id = ${c.req.param("id")}`);
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
@@ -64,9 +66,8 @@ export default class ReservationsController {
         course: body["course"],
         class: body["class"],
       });
-      return c.json({
-        response: result,
-      });
+
+      return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
         return c.newResponse(`${error}`, error.rawCode);
@@ -99,6 +100,7 @@ export default class ReservationsController {
           class: body["class"],
         })
         .where(sql`id = ${c.req.param("id")}`);
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
@@ -121,6 +123,7 @@ export default class ReservationsController {
       const result = await db
         .delete(ReservationsModel)
         .where(sql`id = ${c.req.param("id")}`);
+
       return c.json(result);
     } catch (error) {
       if (error instanceof LibsqlError) {
