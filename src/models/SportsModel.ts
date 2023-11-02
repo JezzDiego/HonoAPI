@@ -1,7 +1,8 @@
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 const SportsModel = sqliteTable("Sports", {
-  name: text("name").notNull().unique().primaryKey(),
+  id: integer("id").primaryKey(),
+  name: text("name").notNull().unique(),
 });
 
 export default SportsModel;
