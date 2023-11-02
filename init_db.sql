@@ -13,7 +13,8 @@ CREATE TABLE Reservations (
 );
 
 CREATE TABLE Sports (
-    name TEXT PRIMARY KEY
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE Users (
