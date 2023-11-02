@@ -1,9 +1,12 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import UserController from "./controllers/UsersController";
 import ReservationsController from "./controllers/ReservationsController";
 import SportsController from "./controllers/SportsController";
 
 const app = new Hono();
+
+app.use("/*", cors());
 
 // Users routes
 app.get("/users", UserController.getAllUsers);

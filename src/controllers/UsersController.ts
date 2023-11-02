@@ -57,6 +57,7 @@ export default class UserController {
       const hashedPassword = await Bun.password.hash(body["password"]);
 
       const result = await db.insert(UserModel).values({
+        id: body["matricula"],
         email: body["email"],
         name: body["name"],
         password: hashedPassword,
