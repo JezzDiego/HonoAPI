@@ -62,7 +62,7 @@ export default class UserController {
         password: hashedPassword,
       });
 
-      return c.json(result);
+      return c.json(result, 201);
     } catch (error) {
       if (error instanceof LibsqlError) {
         return c.newResponse(`${error}`, error.rawCode);
