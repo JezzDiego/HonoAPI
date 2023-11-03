@@ -1,3 +1,6 @@
+# Build container: docker build -t hono-api .
+# Run container: docker run -p 3001:3001 hono-api
+
 FROM oven/bun
 
 WORKDIR /app
