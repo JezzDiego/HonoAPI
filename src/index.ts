@@ -29,4 +29,7 @@ app.post("/sports", SportsController.createSport);
 app.patch("/sports/:id", SportsController.updateSportById);
 app.delete("/sports/:id", SportsController.deleteSportById);
 
-export default app;
+export default {
+  port: 3001,
+  fetch: app.fetch,
+};
